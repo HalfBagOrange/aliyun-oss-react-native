@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import javax.net.ssl.HttpsURLConnection;
 import java.net.URL;
 
 public class AliyunAuthManager {
@@ -131,8 +132,17 @@ public class AliyunAuthManager {
             public OSSFederationToken getFederationToken() {
                 try {
                     URL stsUrl = new URL(server);
-                    HttpURLConnection conn = (HttpURLConnection) stsUrl.openConnection();
-                    InputStream input = conn.getInputStream();
+                    InputStream input;
+                    if(server.indexOf("https") == 0) {
+                        HttpsURLConnection conn = (HttpsURLConnection) stsUrl.openConnection();
+                        conn.setRequestMethod("POST");
+                        input = conn.getInputStream();
+                    }
+                    else {
+                        HttpURLConnection conn = (HttpURLConnection) stsUrl.openConnection();
+                        conn.setRequestMethod("POST");
+                        input = conn.getInputStream();
+                    }
                     String jsonText = IOUtils.readStreamAsString(input, OSSConstants.DEFAULT_CHARSET_NAME);
                     JSONObject jsonObjs = new JSONObject(jsonText);
                     String ak = jsonObjs.getString("AccessKeyId");
