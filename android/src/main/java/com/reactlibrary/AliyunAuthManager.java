@@ -124,7 +124,7 @@ public class AliyunAuthManager {
      * @param endPoint
      * @param configuration
      */
-    public void initWithServerSTS(final String server,
+    public void initWithServerSTS(final String server, final String jwtToken,
                                   String endPoint,
                                   ReadableMap configuration) {
         OSSCredentialProvider credentialProvider = new OSSFederationCredentialProvider() {
@@ -136,11 +136,13 @@ public class AliyunAuthManager {
                     if(server.indexOf("https") == 0) {
                         HttpsURLConnection conn = (HttpsURLConnection) stsUrl.openConnection();
                         conn.setRequestMethod("POST");
+                        conn.setRequestProperty("Authorization", "Bearer " + jwtToken);
                         input = conn.getInputStream();
                     }
                     else {
                         HttpURLConnection conn = (HttpURLConnection) stsUrl.openConnection();
                         conn.setRequestMethod("POST");
+                        conn.setRequestProperty("Authorization", "Bearer " + jwtToken);
                         input = conn.getInputStream();
                     }
                     String jsonText = IOUtils.readStreamAsString(input, OSSConstants.DEFAULT_CHARSET_NAME);

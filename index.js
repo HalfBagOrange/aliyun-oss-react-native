@@ -63,8 +63,8 @@ export default AliyunOSS = {
      * Initialize the OSS Client
      * Server STS
      */
-    initWithServerSTS(server, endPoint, configuration = conf) {
-        RNAliyunOSS.initWithServerSTS(server, endPoint, configuration);
+    initWithServerSTS(server, jwtToken, endPoint, configuration = conf) {
+        RNAliyunOSS.initWithServerSTS(server, jwtToken, endPoint, configuration);
     },    
 
     /**

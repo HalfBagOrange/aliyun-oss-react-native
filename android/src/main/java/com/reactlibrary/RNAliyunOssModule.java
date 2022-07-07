@@ -172,8 +172,8 @@ public class RNAliyunOssModule extends ReactContextBaseJavaModule {
      * @param configuration
      */
     @ReactMethod
-    public void initWithServerSTS(final String server, String endPoint, ReadableMap configuration) {
-        mAuth.initWithServerSTS(server, endPoint, configuration);
+    public void initWithServerSTS(final String server, final String jwtToken, String endPoint, ReadableMap configuration) {
+        mAuth.initWithServerSTS(server, jwtToken, endPoint, configuration);
     }
 
     /**
