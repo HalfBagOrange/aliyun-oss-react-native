@@ -65,9 +65,9 @@ RCT_EXPORT_METHOD(initWithSecurityToken:(NSString *)securityToken accessKey:(NSS
 /**
  initWithServerSTS
  */
-RCT_EXPORT_METHOD(initWithServerSTS:(NSString *)server endPoint:(NSString *)endPoint configuration:(NSDictionary *)configuration){
+RCT_EXPORT_METHOD(initWithServerSTS:(NSString *)server token:(NSString *)token endPoint:(NSString *)endPoint configuration:(NSDictionary *)configuration){
     //直接访问鉴权服务器（推荐，token过期后可以自动更新）
-    id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:server];
+    id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:server token:token];
     
     [self initConfiguration: configuration];
 
